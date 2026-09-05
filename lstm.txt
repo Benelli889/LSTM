@@ -1,0 +1,33 @@
+1. Klassische Zeitreihenanalyse (Statistische Modelle)
+Diese Modelle eignen sich besonders gut, wenn Sie nur das Beschleunigungssignal selbst (univariat) analysieren und kurzfristige Trends hochrechnen möchten.
+•	ARIMA / SARIMAX (AutoRegressive Integrated Moving Average):
+•	Funktionsweise: Nutzt historische Werte und Vorhersagefehler der Vergangenheit, um zukünftige Punkte zu berechnen. SARIMAX kann zudem externe Einflussfaktoren (z. B. Motordrehzahl) einbeziehen.
+•	Eignung: Gut für sehr kurzfristige Vorhersagen, stößt bei hochdynamischen und nicht-linearen Signalverläufen (wie plötzlichem Bremsen/Beschleunigen) aber schnell an Grenzen.
+•	Exponentielle Glättung (z. B. Holt-Winters):
+•	Funktionsweise: Gewichtet jüngere Messpunkte stärker als ältere und kann Trends sowie Saisonalitäten (falls zyklisch) abbilden.
+________________________________________
+2. Zustandsraummodelle (Physikalisch motiviert)
+Da es sich um ein Fahrzeug handelt, spielen physikalische Gesetze eine tragende Rolle. Diese Modelle nutzen dieses Wissen aus.
+•	Kalman-Filter (und erweiterte Varianten wie EKF/UKF):
+•	Funktionsweise: Kombiniert ein physikalisches Bewegungsmodell des Fahrzeugs mit den verrauschten Messungen der Sensoren, um den optimalen Zustand (Position, Geschwindigkeit, Beschleunigung) zu schätzen und kurzzeitig in die Zukunft zu extrapolieren.
+•	Vorteil: Extrem zeiteffizient, echtzeitfähig und direkt auf Mikrocontrollern im Fahrzeug implementierbar.
+________________________________________
+3. Maschinelles Lernen & Deep Learning (Datengetriebene Modelle)
+Wenn Sie Zugriff auf historische Fahrdaten haben, bieten neuronale Netze die höchste Genauigkeit bei komplexen, nicht-linearen Verläufen.
+•	LSTM (Long Short-Term Memory) / GRU:
+•	Funktionsweise: Spezialisierte rekursive neuronale Netze (RNNs), die Sequenzen und zeitliche Abhängigkeiten hervorragend lernen können. Sie "erinnern" sich an den Kontext der letzten Sekunden (z. B. ob das Fahrzeug gerade anfährt oder bereits konstant fährt).
+•	Eignung: Industriestandard für komplexe Zeitreihenvorhersagen.
+•	Transformer-Modelle (Time-Series Transformer):
+•	Funktionsweise: Nutzen Attention-Mechanismen, um Abhängigkeiten über längere Zeiträume hinweg zu erfassen.
+•	Eignung: Sehr mächtig, benötigen jedoch im Vergleich zu LSTMs deutlich mehr Rechenleistung und Daten.
+•	TCN (Temporal Convolutional Networks):
+•	Funktionsweise: Nutzen faltende Schichten (CNNs) für Sequenzdaten. Oft schneller zu trainieren als LSTMs bei vergleichbarer Präzision.
+________________________________________
+4. Hybrid-Ansätze (Physik-informiertes ML)
+•	Physics-Informed Neural Networks (PINN):
+•	Funktionsweise: Hierbei wird das neuronale Netz durch physikalische Randbedingungen (z. B. maximale Motorleistung, Reibungsgrenzen, Masse des Fahrzeugs) eingeschränkt.
+•	Vorteil: Verhindert physikalisch unmögliche Vorhersagen (z. B. unrealistisch extreme Beschleunigungssprünge) und benötigt weniger Trainingsdaten.
+________________________________________
+📌 Empfehlung für Ihr Vorgehen (Key Takeaway)
+1.	Kurzfristig & Echtzeit (Millisekunden bis wenige Sekunden): Nutzen Sie einen Kalman-Filter. Er benötigt kein langes Training, läuft direkt im Steuergerät und glättet gleichzeitig das Signal.
+2.	Mittelfristig (Sekunden bis Minuten, z. B. für vorausschauendes Fahren): Setzen Sie auf ein LSTM-Netzwerk. Wenn Sie dieses in MATLAB implementieren möchten, bietet die Deep Learning Toolbox fertige Layer (lstmLayer), mit denen sich Beschleunigungsverläufe basierend auf aufgezeichneten Fahrzyklen trainieren lassen.

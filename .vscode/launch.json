@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: cnn-lstm.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cnn-lstm.py",
+            //"program": "${workspaceFolder}/lstm-plot.py",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        }
+    ]
+}
